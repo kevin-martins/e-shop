@@ -1,29 +1,27 @@
 import { ProductProps } from "@/models/product";
 import { getProducts } from "@/services/product";
+import ProductCard from "@/components/ProductCard";
+import Link from "next/link";
 
 export default async function Home() {
-  // const [products, setProducts] = useState([])
   const products = await getProducts();
-  console.log("product", products)
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="container bg-blue-500">
-        <h1>E-Shop</h1>
-        {products.map((product: ProductProps) => (
-          <div key={product.id}>
-            <p>{product.name}</p>
-          </div>
-        ))}
+      <div className="container">
+        <div className="bg-green-500 w-44 h-12 -skew-x-[30deg] mb-5">
+          <h1 className="text-2xl text-center skew-x-[30deg] text-white">Products</h1>
+        </div>
+        <div className="flex gap-5 flex-wrap">
+          {products.map((product: ProductProps) => (
+            <Link
+              href={`/product/${product.id}`}
+            >
+              <ProductCard key={product.id} {...product} />
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
   )
 }
-
-// export async function getStaticProps() {
-//   const products = (await getPosts()) || [];
-//   console.log("static")
-//   getProducts().then(res => console.log(res))
-//   return  {
-//     props: { products }
-//   }
-// }
