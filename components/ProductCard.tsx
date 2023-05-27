@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { ProductProps } from '@/models/product'
 import { average, normalisePrice, priceToEuro } from '@/helpers/utils'
+import Image from 'next/image'
 
 const ProductCard = (product: ProductProps) => {
   const [hover, setHover] = useState<boolean>(false)
@@ -29,17 +30,27 @@ const ProductCard = (product: ProductProps) => {
           </div>
         }
         <p className='text-end pt-2 pr-2 text-yellow-500 text-lg'>
-          {priceToEuro(normalisePrice(product.price))}
+          {priceToEuro(normalisePrice(product.price))}€
         </p>
-        <img
+        <Image
           alt={product.name}
           src={product.image.url}
-          width={256}
-          height={256}
+          width={200}
+          height={200}
           className='mx-auto'
         />
-        <p className={`text-white text-center text-2xl ${hover ? 'text-white' : 'text-black'}`}>{product.name}</p>
-        <p>{average(product.comments.map((comment) => comment.rating))}</p>
+        <div className='grid w-full'>
+          <img
+            width="20"
+            height="20"
+            src="https://img.icons8.com/3d-fluency/94/star.png"
+            alt="star"
+          />
+          <p className='mx-auto'>
+            {Math.round(average(product.comments.map((comment) => comment.rating)))}
+          </p>
+        <p className={`text-white mx-auto text-2xl ${hover ? 'text-white' : 'text-black'}`}>{product.name}</p>
+        </div>
       </div>
       {hover &&
         <div>

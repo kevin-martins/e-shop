@@ -13,6 +13,7 @@ export const getProducts = async (): Promise<ProductProps[]> => {
           url
         }
         price
+        quantity
         comments {
           rating
         }
@@ -31,7 +32,6 @@ export const getProductDetail = async (id: string): Promise<any> => {
         id
         name
         price
-        slug
         createdAt
         publishedAt
         updatedAt
